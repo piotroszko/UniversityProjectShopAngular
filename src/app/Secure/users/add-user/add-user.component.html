@@ -1,0 +1,111 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      Dodawanie nowego użytkownika
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="basic-form">
+      <form #loginForm="ngForm">
+        <div class="form-group row align-items-center">
+          <label class="col-sm-3 col-form-label text-label">Login</label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id="validationDefaultUsername2"
+                placeholder="Podaj login nowego uzytkownika"
+                aria-describedby="validationDefaultUsername2"
+                name="name"
+                [(ngModel)]="form.name"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <label class="col-sm-3 col-form-label text-label">Email</label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <input
+                type="email"
+                class="form-control"
+                id="validationDefaultUsername2"
+                placeholder="Podaj email"
+                aria-describedby="validationDefaultUsername2"
+                name="email"
+                [(ngModel)]="form.email"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <label class="col-sm-3 col-form-label text-label">Hasło</label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <input
+                type="password"
+                class="form-control"
+                id="validationDefaultUsername3"
+                placeholder="Podaj hasło"
+                aria-describedby="validationDefaultUsername3"
+                name="password"
+                [(ngModel)]="form.password"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <label class="col-sm-3 col-form-label text-label"
+            >Powtórz hasło</label
+          >
+          <div class="col-sm-9">
+            <div class="input-group">
+              <input
+                type="password"
+                class="form-control"
+                id="validationDefaultUsername3"
+                placeholder="Podaj hasło ponownie"
+                aria-describedby="validationDefaultUsername3"
+                name="repeat_password"
+                [(ngModel)]="form.repeat_password"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <label class="col-sm-3 col-form-label text-label">Wybierz role</label>
+          <div class="col-lg-9">
+            <select class="form-control" [(ngModel)]="roleSelected" name="role">
+              <option selected value="pracownik">Pracownik</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            (click)="addUser(); modal.close('Save click')"
+          >
+            Dodaj użytkownika
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+  Dodaj użytkownika
+</button>
+
+<hr />

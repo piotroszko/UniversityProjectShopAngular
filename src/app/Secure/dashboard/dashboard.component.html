@@ -1,0 +1,213 @@
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col p-md-0">
+        <h4>Dashboard</h4>
+      </div>
+      <div class="col p-md-0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/" routerLinkActive="active">Dashboard</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row" id="dragdrop">
+      <div class="col-sm-6 col-xl-3">
+        <div class="card">
+          <div class="card-body widget-campaign style-1">
+            <h2 class="text-lgreen">
+              <span>
+                <app-currency [value]="valueSoldTodayNumber"></app-currency>
+              </span>
+            </h2>
+            <p class="tt-uppercase">Obrót dzisiaj</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-xl-3">
+        <div class="card">
+          <div
+            class="card-body stat-widget-seven style-1 gradient-6"
+            style="height: 127px"
+          >
+            <div class="media">
+              <img
+                class="mr-5 m-t-13 m-l-5"
+                src="../../assets/images/icons/13.png"
+                alt=""
+              />
+              <div class="media-body">
+                <h2 class="mt-0 mb-1">{{ amountSoldTodayNumber }}</h2>
+                <h5>Dzisiaj sprzedanych produktów</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-3">
+        <div class="card">
+          <div class="card-body widget-campaign style-1">
+            <h2 class="text-danger">
+              <span
+                ><app-currency [value]="valueSoldMonthNumber"></app-currency
+              ></span>
+            </h2>
+            <p class="tt-uppercase">Obrót miesieczny</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-xl-3">
+        <div class="card">
+          <div
+            class="card-body stat-widget-seven style-1 gradient-5"
+            style="height: 127px"
+          >
+            <div class="media">
+              <img
+                class="mr-5 m-t-13 m-l-5"
+                src="../../assets/images/icons/14.png"
+                alt=""
+              />
+              <div class="media-body">
+                <h2 class="mt-0 mb-1">{{ amountSoldMonthNumber }}</h2>
+                <h5>Produktów sprzedanych w tym miesiacu</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="">
+            <div class="table-action">
+              <form action="#">
+                <div class="row">
+                  <div class="col-sm-5 ml-4 mt-4">
+                    <h2>Ilość sprzedanych produktów w danym miesiącu</h2>
+                  </div>
+                  <!--                   
+                  <div class="col-sm-3 mr-1 mt-3">
+                    <select
+                      class="form-select form-select-lg"
+                      data-width="auto"
+                      (change)="selectHandlerCategoryAmount($event)"
+                    >
+                      <option selected="selected" value="all">Wszystkie</option>
+                      <ng-container *ngFor="let cat of listOfCategories">
+                        <option value="{{ cat.category }}">
+                          {{ cat.category | titlecase }}
+                        </option>
+                      </ng-container>
+                    </select>
+                  </div>
+                  <div class="col-sm-2 mx-1 mt-3">
+                    <select
+                      class="form-select form-select-lg"
+                      data-width="auto"
+                      (change)="selectHandlerDateAmount($event)"
+                    >
+                      <option value="today">Dzisiaj</option>
+                      <option selected="selected" value="30days">
+                        Ostatnie 30 dni
+                      </option>
+                      <option value="6months">Ostatnie 6 miesiecy</option>
+                      <option value="year">Ostatni rok</option>
+                      <option value="all">Wszystko</option>
+                    </select>
+                  </div> -->
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div class="card-body">
+            <div class="row">
+              <div class="card-title mb-5">
+                <ngx-charts-bar-horizontal
+                  [view]="view[0]"
+                  [results]="amountSoldSorted"
+                  [gradient]="gradient"
+                  [xAxis]="showXAxis"
+                  [yAxis]="showYAxis"
+                  [legend]="showLegend"
+                  [showXAxisLabel]="showXAxisLabel"
+                  [showYAxisLabel]="showYAxisLabel"
+                  [xAxisLabel]="xAxisLabel"
+                  [yAxisLabel]="yAxisLabel"
+                >
+                </ngx-charts-bar-horizontal>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="">
+            <div class="table-action">
+              <form action="#">
+                <div class="row">
+                  <div class="col-sm-5 ml-4 mt-4">
+                    <h2>Sprzedaż poszczególnych produktów w danym miesiącu</h2>
+                  </div>
+                  <!-- <div class="col-sm-3 mx-1 mt-3">
+                    <select
+                      class="form-select form-select-lg"
+                      data-width="auto"
+                      (change)="selectHandlerCategoryValue($event)"
+                    >
+                      <option selected="selected" value="all">Wszystkie</option>
+                      <ng-container *ngFor="let cat of listOfCategories">
+                        <option value="{{ cat.category }}">
+                          {{ cat.category | titlecase }}
+                        </option>
+                      </ng-container>
+                    </select>
+                  </div>
+                  <div class="col-sm-2 mx-1 mt-3">
+                    <select
+                      class="form-select form-select-lg"
+                      data-width="auto"
+                      (change)="selectHandlerDateValue($event)"
+                    >
+                      <option value="today">Dzisiaj</option>
+                      <option selected="selected" value="30days">
+                        Ostatnie 30 dni
+                      </option>
+                      <option value="6months">Ostatnie 6 miesiecy</option>
+                      <option value="year">Ostatni rok</option>
+                      <option value="all">Wszystko</option>
+                    </select>
+                  </div> -->
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div class="card-body">
+            <div class="row">
+              <div class="card-title mb-5">
+                <ngx-charts-bar-horizontal
+                  [view]="view[0]"
+                  [results]="valueSoldSorted"
+                  [gradient]="gradient"
+                  [xAxis]="showXAxis"
+                  [yAxis]="showYAxis"
+                  [legend]="showLegend"
+                  [showXAxisLabel]="showXAxisLabel"
+                  [showYAxisLabel]="showYAxisLabel"
+                  [xAxisLabel]="xAxisLabel2"
+                  [yAxisLabel]="yAxisLabel"
+                >
+                </ngx-charts-bar-horizontal>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

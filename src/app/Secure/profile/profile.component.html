@@ -1,0 +1,106 @@
+<div class="content-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h4 class="mb-0">Nazwa</h4>
+              </div>
+              <div class="col-sm-9 text-secondary">{{ userInfo.name }}</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h4 class="mb-0">Email</h4>
+              </div>
+              <div class="col-sm-9 text-secondary">{{ userInfo.email }}</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h4 class="mb-0">Rola</h4>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ checkRole() }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h4 class="mb-0">Data stworzenia konta</h4>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ userInfo.creationDate }}
+              </div>
+            </div>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <h2>Zmiana hasła</h2>
+            </div>
+            <div class="row">
+              <form
+                #changePasswordForm="ngForm"
+                (ngSubmit)="changePassword()"
+                class="mt-5 mb-5"
+              >
+                <div class="form-group">
+                  <label>Stare hasło</label>
+                  <input
+                    [(ngModel)]="form.old_password"
+                    type="password"
+                    class="form-control"
+                    placeholder="Podaj stare hasło"
+                    name="old_password"
+                    required
+                  />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label>Nowe hasło</label>
+                  <input
+                    [(ngModel)]="form.new_password"
+                    type="password"
+                    class="form-control"
+                    placeholder="Podaj nowe hasło"
+                    name="new_password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Powtórz hasło</label>
+                  <input
+                    [(ngModel)]="form.confirm_password"
+                    type="password"
+                    class="form-control"
+                    placeholder="Powtórz nowe hasło"
+                    name="confirm_password"
+                    required
+                  />
+                </div>
+                <div class="text-center mb-4 mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    [disabled]="!changePasswordForm.valid"
+                  >
+                    Zmień hasło
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

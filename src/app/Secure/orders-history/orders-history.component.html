@@ -1,0 +1,134 @@
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col p-md-0">
+        <h4>Historia zamówień</h4>
+      </div>
+      <div class="col p-md-0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/" routerLinkActive="active">Strona główna</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a routerLink="/orders-history" routerLinkActive="active"
+              >Historia zamówień</a
+            >
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group m-b-0"></div>
+            </div>
+            <h4 class="card-title mb-4">Zamówienia</h4>
+            <div class="mb-4 col-4">
+              <input
+                type="text"
+                [(ngModel)]="filterInput"
+                (keyup)="doFilter()"
+                class="form-control"
+                placeholder="Filtruj"
+              />
+            </div>
+            <table
+              mat-table
+              [dataSource]="dataSource"
+              multiTemplateDataRows
+              class="mat-elevation-z8"
+            >
+              <ng-container
+                matColumnDef="{{ column }}"
+                *ngFor="let column of columnsToDisplay"
+              >
+                <th mat-header-cell *matHeaderCellDef>
+                  <ng-container *ngIf="column == 'id'">
+                    ID zamówienia
+                  </ng-container>
+                  <ng-container *ngIf="column == 'seller'">
+                    Sprzedawca
+                  </ng-container>
+                  <ng-container *ngIf="column == 'date'">
+                    Data złożenia zamówienia
+                  </ng-container>
+                  <ng-container *ngIf="column == 'action'"> Usuń </ng-container>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <ng-container *ngIf="column == 'cost'">
+                    <app-currency [value]="element[column]"></app-currency>
+                  </ng-container>
+                  <ng-container *ngIf="column == 'action'">
+                    <button
+                      class="btn btn-outline-primary"
+                      (click)="open(element['id'])"
+                    >
+                      Usuń
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="column != 'cost' && column != 'action'">
+                    {{ element[column] }}
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+              <ng-container matColumnDef="expandedDetail">
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  [attr.colspan]="columnsToDisplay.length"
+                >
+                  <div
+                    class="example-element-detail"
+                    [@detailExpand]="
+                      element == expandedElement ? 'expanded' : 'collapsed'
+                    "
+                  >
+                    <!-- Inside of each order (maybe new module ?) -->
+                    <div class="example-element-description">
+                      <div class="align-items-center">
+                        <app-items-table
+                          [order_id]="element.id"
+                          [postionsTable]="orderData"
+                        ></app-items-table>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+              <tr
+                mat-row
+                *matRowDef="let element; columns: columnsToDisplay"
+                class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="
+                  expandedElement = expandedElement === element ? null : element
+                "
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: ['expandedDetail']"
+                class="example-detail-row"
+              ></tr>
+            </table>
+            <mat-paginator
+              #paginator
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 20]"
+            >
+            </mat-paginator>
+
+            <!-- Copyright 2021 Google LLC. All Rights Reserved.
+         Use of this source code is governed by an MIT-style license that
+         can be found in the LICENSE file at http://angular.io/license -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

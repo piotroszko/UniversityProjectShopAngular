@@ -1,0 +1,150 @@
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col p-md-0">
+        <h4>Panel dodawania nowego zamówienia</h4>
+      </div>
+      <div class="col p-md-0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/" routerLinkActive="active">Strona główna</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a routerLink="/orders" routerLinkActive="active">Zamówienia</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card card">
+          <div class="card-header">Dodawanie nowego zamówienia</div>
+          <div class="card-body">
+            <form #orderForm="ngForm" class="">
+              <div class="form-group" style="margin-bottom: 100px">
+                <label>Nazwa sprzedawcy</label>
+                <fieldset disabled>
+                  <input
+                    type="name"
+                    class="form-control col-lg-2"
+                    placeholder="{{ getNameOfSeller() }}"
+                    name="name"
+                    id="disabledTextInput"
+                  />
+                </fieldset>
+              </div>
+
+              <div class="form-row" style="margin-bottom: 5px">
+                <div class="col-sm-3 mx-3">
+                  <label> Wybierz kategorie</label>
+                  <select
+                    [(ngModel)]="selectedCategory"
+                    name="category_select"
+                    class="form-control custom-select"
+                    data-width="auto"
+                    (change)="changeCategory()"
+                  >
+                    <ng-container *ngFor="let cat of listOfCategories">
+                      <option value="{{ cat.category }}">
+                        {{ cat.category | titlecase }}
+                      </option>
+                    </ng-container>
+                  </select>
+                </div>
+                <div class="col-sm-3 mx-3">
+                  <label> Wybierz produkt</label>
+
+                  <select
+                    [(ngModel)]="selectedProduct"
+                    name="products_select"
+                    class="form-control custom-select"
+                    data-width="auto"
+                  >
+                    <ng-container *ngFor="let pro of listOfProductsSorted">
+                      <option value="{{ pro.id }}">
+                        {{ pro.name | titlecase }} | Cena:
+                        <app-currency [value]="pro.price"></app-currency>
+                      </option>
+                    </ng-container>
+                  </select>
+                </div>
+                <div class="col-sm-2 mx-3">
+                  <label> Ilość </label>
+                  <input
+                    name="quantity"
+                    [(ngModel)]="quantitySelected"
+                    type="number"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="form-row" style="margin-bottom: 20px">
+                <div class="mb-4 mt-4 mx-4">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg"
+                    (click)="addProduct()"
+                  >
+                    Dodaj pozycje
+                  </button>
+                </div>
+              </div>
+              <div class="form-row mt-2">
+                <div class="text-center mx-auto">
+                  <label style="font-size: medium"
+                    >Łaczna wartość zamówienia</label
+                  >
+                  <br />
+                  <h1>
+                    <span class="badge"
+                      ><h1>
+                        <p>
+                          <app-currency [value]="costOfOrder"></app-currency>
+                        </p></h1
+                    ></span>
+                  </h1>
+                </div>
+              </div>
+              <div class="form-row">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nazwa produktu</th>
+                      <th scope="col">Kategoria</th>
+                      <th scope="col">Cena za sztuke</th>
+                      <th scope="col">Ilość</th>
+                      <th scope="col">Usuń</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let pos of productsOnOrder">
+                      <tr>
+                        <th>{{ pos.name }}</th>
+                        <td>{{ pos.category }}</td>
+                        <td>{{ pos.cost }}</td>
+                        <td>{{ pos.quantity }}</td>
+                        <td>
+                          <button
+                            class="btn bg-danger"
+                            (click)="deleteProduct(pos.order_id)"
+                          >
+                            Usuń
+                          </button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mb-4 mt-4">
+                <button (click)="onSubmit()" class="btn btn-primary">
+                  Utwórz zamówienie
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

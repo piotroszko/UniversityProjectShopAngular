@@ -1,0 +1,94 @@
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col p-md-0">
+        <h4>Produkty</h4>
+      </div>
+      <div class="col p-md-0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/" routerLinkActive="active">Strona główna</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a routerLink="/products" routerLinkActive="active">Produkty</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <ng-container *ngIf="ProductsView === 0">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group m-b-0">
+                  <button class="btn btn-primary" (click)="ProductsView = 2">
+                    Dodaj nowy produkt
+                  </button>
+                </div>
+              </div>
+              <h4 class="card-title mb-4">Tabela produktów</h4>
+              <div class="table-responsive">
+                <table
+                  class="table verticle-middle table-hover"
+                  style="min-width: 400px"
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col">Nazwa</th>
+                      <th scope="col">Kategoria</th>
+                      <th scope="col">Cena</th>
+                      <th scope="col">Akcje</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let pro of productsList | async">
+                      <ng-container *ngIf="pro.isActive == 1">
+                        <td>{{ pro.name | titlecase }}</td>
+                        <td>{{ pro.category | titlecase }}</td>
+                        <td>
+                          <app-currency [value]="pro.price"></app-currency>
+                        </td>
+                        <td>
+                          <span
+                            ><a
+                              href=""
+                              class="mr-4"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title="Edit"
+                              (click)="editProduct($event, pro.id)"
+                              ><i class="fa fa-pencil color-muted"></i> </a
+                            ><a
+                              href=""
+                              (click)="deleteProduct($event, pro.id)"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title="Close"
+                              ><i class="fa fa-trash color-danger"></i></a
+                          ></span>
+                        </td>
+                      </ng-container>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="ProductsView === 1">
+      <app-edit-product
+        [editID]="ProductEdit"
+        (viewValue)="changeViewBack()"
+      ></app-edit-product>
+      <!-- TODO: - Dodac Input z id edytowanego produktu
+                 - Dodac check z nadpisanie aktualnego produktu czy "ala" nowy produkt, aby historia zamowien sie zgadzala
+      -->
+    </ng-container>
+    <ng-container *ngIf="ProductsView === 2">
+      <app-add-product (viewValue)="changeViewBack()"></app-add-product>
+    </ng-container>
+  </div>
+</div>

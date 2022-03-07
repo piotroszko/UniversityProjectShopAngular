@@ -1,0 +1,57 @@
+<div class="login-bg h-100">
+  <div class="container h-100">
+    <div class="row justify-content-center h-100">
+      <div class="col-xl-6">
+        <div class="form-input-content login-form">
+          <div class="card">
+            <div class="card-body">
+              <div class="logo text-center">
+                <a href="index.html">
+                  <img src="../../../assets/images/f-logo.png" alt="" />
+                </a>
+              </div>
+              <h4 class="text-center mt-4">Zmiana hasła</h4>
+              <form
+                #passwordResetForm="ngForm"
+                (ngSubmit)="onSubmit()"
+                class="mt-5 mb-5"
+              >
+                <div class="form-group">
+                  <label>Hasło</label>
+                  <input
+                    [(ngModel)]="form.password"
+                    type="password"
+                    class="form-control"
+                    placeholder="Podaj hasło"
+                    name="password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Powtórz hasło</label>
+                  <input
+                    [(ngModel)]="form.confirm_password"
+                    type="password"
+                    class="form-control"
+                    placeholder="Powtórz hasło"
+                    name="confirm_password"
+                    required
+                  />
+                </div>
+                <div class="text-center mb-4 mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    [disabled]="!passwordResetForm.valid"
+                  >
+                    Potwierdz
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

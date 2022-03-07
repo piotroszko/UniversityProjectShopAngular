@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card forms-card">
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group m-b-0">
+            <button class="btn btn-primary" (click)="viewValue.emit()">
+              <- Wróc do listy produktów
+            </button>
+          </div>
+        </div>
+        <div class="basic-form">
+          <form (ngSubmit)="addProduct()" #productForm="ngForm">
+            <div class="form-group">
+              <label class="text-label">Nazwa produktu</label>
+              <input
+                type="text"
+                name="product_name"
+                class="form-control"
+                placeholder="np. chleb"
+                [(ngModel)]="form.name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="text-label">Cena</label>
+              <input
+                type="number"
+                name="product_name"
+                class="form-control"
+                [(ngModel)]="form.price"
+                placeholder="2"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="text-label"
+                >Wybierz lub podaj kategorie produktu</label
+              >
+              <input
+                list="categories"
+                class="form-control"
+                name="myBrowser"
+                name="product_category"
+                [(ngModel)]="form.category"
+                required
+              />
+              <datalist id="categories" class="btn-group mb-3">
+                <ng-container *ngFor="let pro of listOfCategories">
+                  <option
+                    value="{{ pro.category }}"
+                    class="btn-group mb-3"
+                  ></option>
+                </ng-container>
+              </datalist>
+            </div>
+            <button type="submit" class="btn btn-primary btn-form mr-2">
+              Dodaj produkt
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

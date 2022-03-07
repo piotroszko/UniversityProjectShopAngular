@@ -1,0 +1,148 @@
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col p-md-0">
+        <h4>Statystyki</h4>
+      </div>
+      <div class="col p-md-0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/" routerLinkActive="active">Strona główna</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a routerLink="/statistics" routerLinkActive="active">Statystyki</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="">
+            <div class="table-action">
+              <form action="#">
+                <div class="row">
+                  <div class="col-sm-5 ml-4 mt-4">
+                    <h2>
+                      Ilość zamówień w poszczególne dni w ciągu ostatniego
+                      miesiąca
+                    </h2>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div class="card-body">
+            <div class="row">
+              <div class="card-title mb-5">
+                <!-- Added -->
+                <ngx-charts-bar-horizontal
+                  [view]="[400, 700]"
+                  [xAxis]="true"
+                  [yAxis]="true"
+                  [results]="ordersGraphSorted"
+                  [xAxisTickFormatting]="axisFormat"
+                >
+                </ngx-charts-bar-horizontal>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="">
+            <div class="table-action">
+              <form action="#">
+                <div class="row">
+                  <div class="col-sm-5 ml-4 mt-4">
+                    <h2>
+                      Udział poszczególnych kategorii produktów w sprzedaży w
+                      ciągu ostatniego miesiąca
+                    </h2>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div class="card-body">
+            <div class="row">
+              <div class="card-title mb-5">
+                <!-- Added -->
+                <ngx-charts-pie-grid
+                  [view]="[400, 650]"
+                  [results]="categoryGraphSorted"
+                >
+                </ngx-charts-pie-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="">
+            <div class="table-action">
+              <form action="#">
+                <div class="row">
+                  <div class="col-sm-5 ml-4 mt-4">
+                    <h2>
+                      Ilość zamówień w poszczególne miesiące w ciągu ostatniego
+                      roku
+                    </h2>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div class="card-body">
+            <div class="row">
+              <div class="card-title mb-5">
+                <!-- Added -->
+                <ngx-charts-tree-map
+                  [view]="[400, 700]"
+                  [results]="monthsOrdersGraphSorted"
+                >
+                </ngx-charts-tree-map>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="">
+            <div class="table-action">
+              <form action="#">
+                <div class="row">
+                  <div class="col-sm-5 ml-4 mt-4">
+                    <h2>Łaczny przychód w poszczególne miesiące</h2>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div class="card-body">
+            <div class="row">
+              <div class="card-title mb-5">
+                <!-- Added -->
+                <ngx-charts-pie-chart
+                  [view]="[400, 700]"
+                  [results]="monthsValueGraphSorted"
+                  [labels]="true"
+                >
+                </ngx-charts-pie-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
